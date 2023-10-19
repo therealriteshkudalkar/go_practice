@@ -85,4 +85,25 @@ func main() {
 	a4 := make([]int, 4, 100)
 	fmt.Printf("Length of a4: %v\n", len(a4))
 	fmt.Printf("Capacity of a4: %v\n", cap(a4))
+	
+	// adding elements to the slice
+	a5 := []int{}
+	fmt.Printf("a5: %v\n", a5)
+	fmt.Printf("Length of a5: %v\n", len(a5))
+	fmt.Printf("Capacity of a5: %v\n", cap(a5))
+	a5 = append(a5, 21)
+	a5 = append(a5, 24)
+	a5 = append(a5, 56)
+	a5 = append(a5, 67, 78, 92, 55) // append is a variadic function
+	fmt.Printf("a5: %v\n", a5)
+	fmt.Printf("Length of a5: %v\n", len(a5))
+	fmt.Printf("Capacity of a5: %v\n", cap(a5))
+
+	// concatenating two slices, we can use spread operator to deconstruct the array into individual elements
+	a5 = append(a5, []int{2, 3, 4, 5}...)
+	fmt.Printf("a5: %v\n", a5)
+	fmt.Printf("Length of a5: %v\n", len(a5))
+	fmt.Printf("Capacity of a5: %v\n", cap(a5))
+
+	// getting 
 }
