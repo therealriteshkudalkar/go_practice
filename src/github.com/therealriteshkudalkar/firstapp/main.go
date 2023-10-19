@@ -25,9 +25,9 @@ func main() {
 	fmt.Printf("Student at index 3: %v\n", students[3])
 	fmt.Printf("Number of students in the array: %v\n", len(students))
 
-	// 2D arrays 
+	// 2D arrays
 	//var identityMatrix [3][3]int = [3][3]int {[3]int{1, 0, 0}, [3]int{0, 1, 0}, [3]int{0, 0, 1}}
-	var identityMatrix [3][3]int = [3][3]int {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}}
+	var identityMatrix [3][3]int = [3][3]int{{1, 0, 0}, {0, 1, 0}, {0, 0, 1}}
 	fmt.Println(identityMatrix)
 
 	// other way to assign values in an array
@@ -65,11 +65,11 @@ func main() {
 	// slices created from an array are still pass by reference and point to the underlying array
 	// hence they will reflect change that are being made on the underlying array
 	a2 := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
-	b2 := a2[:] // slice of all elements
-	c2 := a2[3:] // slice from 4th element to end
-	d2 := a2[:6] // slice of first 6 elements
+	b2 := a2[:]   // slice of all elements
+	c2 := a2[3:]  // slice from 4th element to end
+	d2 := a2[:6]  // slice of first 6 elements
 	e2 := a2[3:6] // slice the 4th, 5th and 6th element
-	a2[5] = 42 // changes all the slices
+	a2[5] = 42    // changes all the slices
 	fmt.Println(a2)
 	fmt.Println(b2)
 	fmt.Println(c2)
@@ -85,7 +85,7 @@ func main() {
 	a4 := make([]int, 4, 100)
 	fmt.Printf("Length of a4: %v\n", len(a4))
 	fmt.Printf("Capacity of a4: %v\n", cap(a4))
-	
+
 	// adding elements to the slice
 	a5 := []int{}
 	fmt.Printf("a5: %v\n", a5)
@@ -105,5 +105,11 @@ func main() {
 	fmt.Printf("Length of a5: %v\n", len(a5))
 	fmt.Printf("Capacity of a5: %v\n", cap(a5))
 
-	// getting 
+	// removing elements form the slices
+	b5 := append(a5[:2], a5[3:]...) // removes element 2 from the slice
+	fmt.Printf("a5: %v\n", a5)      // changes occur in the underlying array so be careful
+	fmt.Printf("b5: %v\n", b5)
+	fmt.Printf("Length of a5: %v\n", len(b5))
+	fmt.Printf("Capacity of a5: %v\n", cap(b5))
+
 }
