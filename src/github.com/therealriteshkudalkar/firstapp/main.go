@@ -1,115 +1,79 @@
 package main
 
-// lesson 4: Arrays and Slices
+// lesson 5: Maps and Structs
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
-	// declaring array with a size
-	grades := [3]int{97, 85, 93}
-	fmt.Printf("Grades: %v\n", grades)
+	statePopulation := map[string]int{
+		"California":   39_250_017,
+		"Texas":        27_862_596,
+		"Florida":      20_612_439,
+		"New York":     19_745_289,
+		"Pennsylvania": 12_802_503,
+		"Illinois":     12_801_539,
+		"Ohio":         11_614_373,
+	}
+	fmt.Printf("Population: %v\n", statePopulation)
 
-	// declaring array which is just enough to hold the elements specified
-	grades1 := [...]int{95, 87, 88, 76}
-	fmt.Printf("Grades: %v\n", grades1)
+	// for a certian type to be a key in a map, it we should be able to test it for equality
+	// we cannot use slice, maps and functions as keys for a map
 
-	// declaring an empty array
-	var students [4]string
-	fmt.Printf("Students: %v\n", students)
+	// m := map[[]int]string{} // invalid
 
-	// indexing into the element
-	students[0] = "Lisa"
-	students[2] = "Arnold"
-	students[1] = "Ahmed"
-	fmt.Printf("Students: %v\n", students)
-	fmt.Printf("Student at index 3: %v\n", students[3])
-	fmt.Printf("Number of students in the array: %v\n", len(students))
+	// an array however can be used as a key in a map
+	m := map[[3]int]string{}
+	fmt.Printf("Empty Map: %v\n", m)
 
-	// 2D arrays
-	//var identityMatrix [3][3]int = [3][3]int {[3]int{1, 0, 0}, [3]int{0, 1, 0}, [3]int{0, 0, 1}}
-	var identityMatrix [3][3]int = [3][3]int{{1, 0, 0}, {0, 1, 0}, {0, 0, 1}}
-	fmt.Println(identityMatrix)
+	// we can also create maps using the make function
+	m1 := make(map[string]int)
 
-	// other way to assign values in an array
-	var idMatrix [2][2]int
-	idMatrix[0] = [2]int{1, 0}
-	idMatrix[1] = [2]int{0, 1}
+	// indexing in the map
+	m1["hello"] = 10
+	m1["the"] = 250
+	fmt.Printf("Count Map: %v\n", m1)
+	fmt.Printf("hello count: %v\n", m1["the"])
+	fmt.Printf("man count: %v\n", m1["man"])
 
-	// in Go, the array are value types i.e. when we assign one array to another it creates a literal copy
-	// i.e. they are different memory altogether
-	a := [...]int{1, 2, 3}
-	b := a
-	b[1] = 5 // 'a' remains unchanged after this operation
-	fmt.Printf("a: %v\n", a)
-	fmt.Printf("b: %v\n", b)
+	// deleting entries from the map
+	delete(m1, "the")
+	fmt.Printf("Count Map: %v\n", m1)
+	fmt.Printf("man count: %v\n", m1["the"])
 
-	// to pass arrays by reference, we'll pass them using pointer
-	c := [...]int{1, 3}
-	d := &c
-	d[1] = 7
-	fmt.Printf("c: %v\n", c)
-	fmt.Printf("d: %v\n", d)
+	// check for existence of a key in the map
+	_, ok := statePopulation["Nevada"]
+	fmt.Printf("Is Nevada present? %v\n", ok)
 
-	// slices are just expandable arrays i.e. ArrayList in Java
-	a1 := []int{1, 2, 3, 4}
-	fmt.Printf("Length of a1: %v\n", len(a1))
-	fmt.Printf("Capacity of a1: %v\n", cap(a1))
+	// finding number of keys in the map
+	fmt.Printf("Number of states: %v\n", len(statePopulation))
 
-	// slices are reference types
-	b1 := a1
-	b1[3] = 6
-	fmt.Printf("a1: %v\n", a1)
-	fmt.Printf("b1: %v\n", b1)
+	//like slices, maps are also passed by reference
+	sp := statePopulation
+	delete(sp, "Ohio")
+	fmt.Printf("sp: %v\n", sp)
+	fmt.Printf("statePopulations: %v\n", statePopulation) // deletion is reflected back
 
-	// creating slices by slicing operations (slices can also be created from an array the same way)
-	// slices created from an array are still pass by reference and point to the underlying array
-	// hence they will reflect change that are being made on the underlying array
-	a2 := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
-	b2 := a2[:]   // slice of all elements
-	c2 := a2[3:]  // slice from 4th element to end
-	d2 := a2[:6]  // slice of first 6 elements
-	e2 := a2[3:6] // slice the 4th, 5th and 6th element
-	a2[5] = 42    // changes all the slices
-	fmt.Println(a2)
-	fmt.Println(b2)
-	fmt.Println(c2)
-	fmt.Println(d2)
-	fmt.Println(e2)
+	type Doctor struct {
+		number     int
+		actorName  string
+		companions []string
+	}
 
-	// creating a slice by specifying the size of the slice and the type
-	a3 := make([]int, 3)
-	fmt.Printf("Length of a3: %v\n", len(a3))
-	fmt.Printf("Capacity of a3: %v\n", cap(a3))
+	aDoctor := Doctor{
+		number:    3,
+		actorName: "Jon Pertwee",
+		companions: []string{
+			"Liz Shaw",
+			"Je Cren",
+			"Mina Shane",
+		},
+	}
+	fmt.Printf("Doctor: %v\n", aDoctor)
 
-	// creating a slice by specifying the size (append those many zero element of that type) and the capacity
-	a4 := make([]int, 4, 100)
-	fmt.Printf("Length of a4: %v\n", len(a4))
-	fmt.Printf("Capacity of a4: %v\n", cap(a4))
+	// dot syntax for accessing the members
+	fmt.Printf("Doctor's companion: %v", aDoctor.companions[1])
 
-	// adding elements to the slice
-	a5 := []int{}
-	fmt.Printf("a5: %v\n", a5)
-	fmt.Printf("Length of a5: %v\n", len(a5))
-	fmt.Printf("Capacity of a5: %v\n", cap(a5))
-	a5 = append(a5, 21)
-	a5 = append(a5, 24)
-	a5 = append(a5, 56)
-	a5 = append(a5, 67, 78, 92, 55) // append is a variadic function
-	fmt.Printf("a5: %v\n", a5)
-	fmt.Printf("Length of a5: %v\n", len(a5))
-	fmt.Printf("Capacity of a5: %v\n", cap(a5))
-
-	// concatenating two slices, we can use spread operator to deconstruct the array into individual elements
-	a5 = append(a5, []int{2, 3, 4, 5}...)
-	fmt.Printf("a5: %v\n", a5)
-	fmt.Printf("Length of a5: %v\n", len(a5))
-	fmt.Printf("Capacity of a5: %v\n", cap(a5))
-
-	// removing elements form the slices
-	b5 := append(a5[:2], a5[3:]...) // removes element 2 from the slice
-	fmt.Printf("a5: %v\n", a5)      // changes occur in the underlying array so be careful
-	fmt.Printf("b5: %v\n", b5)
-	fmt.Printf("Length of a5: %v\n", len(b5))
-	fmt.Printf("Capacity of a5: %v\n", cap(b5))
-
+	//
 }
