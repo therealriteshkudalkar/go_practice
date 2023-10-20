@@ -4,19 +4,20 @@ package main
 
 import (
 	"fmt"
+	"reflect"
 )
 
 // here the struct nurse will be exported but the member variables of that struct will not be visible
 type Nurse struct {
-	id int
-	name string
+	id         int
+	name       string
 	companions []string
 }
 
 // here not only the struct is exported but also some of the member variables (starting with a capital letter)
 type Person struct {
-	Name string
-	Age int
+	Name   string
+	Age    int
 	Gender string
 }
 
@@ -72,7 +73,7 @@ func main() {
 	type Doctor struct {
 		number     int
 		actorName  string
-		episodes []string
+		episodes   []string
 		companions []string
 	}
 
@@ -106,5 +107,69 @@ func main() {
 	// dot syntax for accessing the members
 	fmt.Printf("Doctor's companion: %v", aDoctor.companions[1])
 
-	//
+	//Anonymous struct
+	docSt := struct{ name string }{name: "Anol Kane"}
+	fmt.Printf("Anonymous struct: %v\n", docSt)
+
+	// Structs are value types
+	anotherDoc := docSt
+	anotherDoc.name = "Peter Baker"
+	fmt.Printf("docStr: %v\n", docSt)
+	fmt.Printf("anotherDoc: %v\n", anotherDoc)
+
+	pointedDoc := &docSt
+	pointedDoc.name = "Peter Parker"
+	fmt.Printf("docStr: %v\n", docSt)
+	fmt.Printf("pointedDoc: %v\n", *pointedDoc)
+
+	// Go doesn't support inheritance, instead it supports composition
+	type Animal struct {
+		Name   string
+		Origin string
+	}
+
+	// Bird HAS A Animal like characteristics
+	type Bird struct {
+		Animal   // embed the animal struct inside the bird struct
+		SpeedKPH float32
+		CanFly   bool
+	}
+
+	// initialize an empty bird (memory is allocated but with zero value of member types)
+	b := Bird{}
+	// we can directly access the field of the Animal type
+	b.Name = "Emu"
+	b.Origin = "Australia"
+	b.SpeedKPH = 48
+	b.CanFly = false
+	fmt.Printf("Bird: %v\n", b)
+	fmt.Printf("Bird's Name: %v\n", b.Name)
+
+	// Bird is still not a type of animal it's just syntactical sugar that Go provides
+	fmt.Printf("Bird's Name: %v\n", b.Animal)
+
+	// When initializing the bird using a literal syntax, we have to use the following syntax
+	bird := Bird{
+		Animal: Animal{
+			Name:   "Emu",
+			Origin: "Australia",
+		},
+		SpeedKPH: 48,
+		CanFly:   false,
+	}
+	fmt.Printf("bird: %v\n", bird)
+
+	// Generally we don't use composition when we want to define common behaviour
+	// Instead we use interfaces
+
+	// In structs we can use tags to specify certian infomation that can be used
+	type Shape struct {
+		Name  string `required max: "200"`
+		Sides string `required max: "100"`
+	}
+
+	// To get the tag form a struct, we use reflection package
+	typeOfAnimal := reflect.TypeOf(Shape{})
+	field, _ := typeOfAnimal.FieldByName("Name")
+	fmt.Println(field.Tag)
 }
