@@ -6,6 +6,20 @@ import (
 	"fmt"
 )
 
+// here the struct nurse will be exported but the member variables of that struct will not be visible
+type Nurse struct {
+	id int
+	name string
+	companions []string
+}
+
+// here not only the struct is exported but also some of the member variables (starting with a capital letter)
+type Person struct {
+	Name string
+	Age int
+	Gender string
+}
+
 func main() {
 	statePopulation := map[string]int{
 		"California":   39_250_017,
@@ -58,9 +72,26 @@ func main() {
 	type Doctor struct {
 		number     int
 		actorName  string
+		episodes []string
 		companions []string
 	}
 
+	// Don't use this positional syntax more often as it makes maintaenance difficult
+	// when we add new fields to the struct, they might get initialized to other members in the struct
+	/* aDoctor := Doctor {
+		3,
+		"Jon Pertwee",
+		[]string {
+			"Liz Cheney",
+			"Donald Trump",
+			"Alexandria Ocasio Cortez",
+		},
+	} */ // invalid as episodes is missing
+
+	//fmt.Printf("Doctor: %v\n", aDoctor)
+
+	// use this syntax instead
+	// here episodes are not assigned any value so they have a default zero value of that type
 	aDoctor := Doctor{
 		number:    3,
 		actorName: "Jon Pertwee",
