@@ -21,7 +21,7 @@ type Person struct {
 	Gender string
 }
 
-func main() {
+func main5() {
 	statePopulation := map[string]int{
 		"California":   39_250_017,
 		"Texas":        27_862_596,
