@@ -177,8 +177,7 @@ func main6() {
 	}
 
 	// we can also explicitly fallthrough
-	// even after fallthrough, the case (or cases in fallthrough) are executed only
-	// if they satisfy the condition
+	// all the statements are executed after fallthrough regardless of them passing the condition or not
 	i = 10
 	switch {
 	case i <= 10:
@@ -188,13 +187,14 @@ func main6() {
 		fmt.Println("less than or equal to twenty")
 		fallthrough
 	case i >= 30:
-		fmt.Println("greater than thirty")
+		fmt.Println("greater than thirty") // this is executed even though i is less than 30
 	default:
 		fmt.Println("greater than twenty")
 	}
 
 	// we can also have a type switch
 	// we can use break keyword to break our of a switch case early
+	// like if statement, we can also use initilizer syntax with switch
 	var j interface{} = 34
 	switch jType := j.(type) {
 	case int:
