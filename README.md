@@ -4,3 +4,4 @@ This repository contains solved Leetcode problems. It uses Go's built in test li
 The association of each problem with the files is as follows:
 
 - problem1.go: [Two Sum](https://leetcode.com/problems/two-sum/)
+- problem2.go: [Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)
