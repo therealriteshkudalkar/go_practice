@@ -1,3 +1,3 @@
-module github.com/therealriteshkudalkar/firstapp
+module github.com/therealriteshkudalkar/go_practice
 
-go 1.21.2
+go 1.21.6
