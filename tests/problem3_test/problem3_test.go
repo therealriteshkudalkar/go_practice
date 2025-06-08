@@ -20,7 +20,17 @@ func TestCountPrimes(t *testing.T) {
 			4,
 		},
 		{
-			"Edge Case",
+			"Edge Case 1",
+			args{0},
+			0,
+		},
+		{
+			"Edge Case 2",
+			args{1},
+			0,
+		},
+		{
+			"Edge Case 3",
 			args{2},
 			0,
 		},

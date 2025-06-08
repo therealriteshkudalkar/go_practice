@@ -16,20 +16,19 @@ func isPalindromic(str string) bool {
 
 func LongestPalindrome(s string) string {
 	// Find all the substrings and check if it is a palindrome and
-	palindromicStrings := map[string]bool{}
+	palindromicStrings := map[string]int{}
 	n := len(s)
 	for i := 0; i < n; i++ {
-		for j := i; j < n; j++ {
+		for j := i + 1; j < n; j++ {
 			currentString := s[i:j]
 			if isPalindromic(currentString) {
-				palindromicStrings[currentString] = true
+				palindromicStrings[currentString] = j - i
 			}
 		}
 	}
 	lengthOfLargestPalindromicString := 0
 	largestPalindromicString := ""
-	for palindromicString, _ := range palindromicStrings {
-		lengthOfCurrentPalindromicString := len(palindromicString)
+	for palindromicString, lengthOfCurrentPalindromicString := range palindromicStrings {
 		if lengthOfCurrentPalindromicString > lengthOfLargestPalindromicString {
 			lengthOfLargestPalindromicString = lengthOfCurrentPalindromicString
 			largestPalindromicString = palindromicString
