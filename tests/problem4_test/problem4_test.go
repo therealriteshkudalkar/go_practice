@@ -75,3 +75,38 @@ func TestMyPowRecMemoized(t *testing.T) {
 		})
 	}
 }
+
+func TestMyPow(t *testing.T) {
+	type args struct {
+		x float64
+		n int
+	}
+	tests := []struct {
+		name string
+		args args
+		want float64
+	}{
+		{
+			"Test Case 1",
+			args{2.0, 10},
+			1024.0,
+		},
+		{
+			"Test Case 2",
+			args{2.1, 3},
+			9.261000000000001,
+		},
+		{
+			"Test Case 3",
+			args{2.0, -2},
+			0.25,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := problem4.MyPow(tt.args.x, tt.args.n); got != tt.want {
+				t.Errorf("MyPowRec() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
