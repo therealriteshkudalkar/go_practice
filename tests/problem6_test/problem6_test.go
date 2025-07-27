@@ -1,4 +1,4 @@
-package problem6test
+package problem6_test
 
 import (
 	"slices"
