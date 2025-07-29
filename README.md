@@ -11,3 +11,4 @@ The association of each problem with the files is as follows:
 - problem6.go: [Loud and Rich](https://leetcode.com/problems/loud-and-rich/)
 - problem7.go: [Keys and Rooms](https://leetcode.com/problems/keys-and-rooms/)
 - problem8.go: [Satisfiability of Equality Equations](https://leetcode.com/problems/satisfiability-of-equality-equations/)
+- problem9.go: [Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/)

@@ -10,9 +10,6 @@ func find(parent map[string]string, item string) string {
 }
 
 func union(parent map[string]string, rank map[string]int, x string, y string) {
-	if x == y {
-		return
-	}
 	parentX := find(parent, x)
 	parentY := find(parent, y)
 
